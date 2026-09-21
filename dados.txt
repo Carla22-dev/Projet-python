@@ -1,0 +1,11 @@
+App started
+App Started
+Processed Email: {'username': 'carla', 'domain': 'gmail.com'}
+App Stopped
+App started
+App Started
+Invalid Email received: carlafredwjd
+App Stopped
+App started
+App started
+App started
