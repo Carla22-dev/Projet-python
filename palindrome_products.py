@@ -14,19 +14,19 @@ def palindrome (min_factor , max_factor):
     already_exist=False
 
     for i in range (min_factor,max_factor+1):
-        for j in range (min_factor,max_factor+1):
+        for j in range (i,max_factor+1):
             product_btw_value=i*j
             new_pair=sorted([i,j])
             if product_btw_value==reversed_digits(product_btw_value):
                 if product_btw_value not in dict_factor:
                     dict_factor[product_btw_value]=[]
                 already_exist=False
-                for pair in dict_factor[product_btw_value]:
-                    if sorted(pair)==new_pair:
-                        already_exist=True
-                        break
-                if not already_exist:
-                    dict_factor[product_btw_value].append([i,j])
+                # for pair in dict_factor[product_btw_value]:
+                #     if sorted(pair)==new_pair:
+                #         already_exist=True
+                #         break
+                # if not already_exist:
+                dict_factor[product_btw_value].append([i,j])
                 
                 if product_btw_value not in result_product:
                     result_product.append(product_btw_value)
