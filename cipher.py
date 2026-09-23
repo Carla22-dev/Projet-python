@@ -22,9 +22,6 @@ def encode(message, rails):
 
 def decode(encoded_message, rails):
     direction =1
-    directzero=0
-    direction1=0
-    direction2=0
     current_rail=0
     position=0
     quantities=[]
