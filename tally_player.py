@@ -12,6 +12,9 @@ def update (outcome):
 
 
 def tally(rows):
+
+    if not rows:
+        return ["Team                           | MP |  W |  D |  L |  P"]
     dict_team={}
     for position in rows:
         result=position.split(";")
@@ -43,8 +46,29 @@ def tally(rows):
             dict_team[team2][stat]+=value
 
         dict_sorted=sorted(dict_team.items(),key=lambda item:(-item[1]["P"],item[0]))
-        print (dict_sorted)
-    return dict_team
+       
+    table=[]
+    table.append("Team                           | MP |  W |  D |  L |  P")
+    for key in dict_sorted:
+        value_to_table = (
+            f"{key[0]:<30} | "
+            f"{key[1]['MP']:>2} | "
+            f"{key[1]['W']:>2} | "
+            f"{key[1]['D']:>2} | "
+            f"{key[1]['L']:>2} | "
+            f"{key[1]['P']:>2}"
+    )
+        table.append(value_to_table)
+    return table
+
+"""
+        value_to_table ="{}                           | {} |  {} |  {} |  {} |  {}"
+        value_to_table=value_to_table.format(key[0],key[1]["MP"],key[1]["W"],key[1]["D"],key[1]["L"],key[1]["P"])
+        value_to_table = (
+            f"{team:<30} | {mp:>2} | {w:>2} | {d:>2} | {l:>2} | {p:>2}"
+)
+"""
+    
 
 
 
