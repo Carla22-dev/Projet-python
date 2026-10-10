@@ -1,15 +1,23 @@
 from selenium  import webdriver
 from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.chrome.options import Options
 import pandas as pd
 
 website = 'https://www.thesun.co.uk/sport/football/'
-#path = "C:/Users/cf974/ownloads/chromedriver-win64/chromedriver-win64" # introduce path here
+path = r'C:/Users/cf974/Downloads/chromedriver-win64/chromedriver-win64/chromedriver.exe' # introduce path here
 
 
-#service = Service(executable_path=path)
-#driver=webdriver.Chrome(service =service)
-driver=webdriver.Chrome()
+
+## headless
+options=Options()
+options.headless=True
+options.add_argument("--headless")
+
+service = Service(executable_path=path)
+driver=webdriver.Chrome(service =service,options=options)
+
 driver.get(website)
+
 containers=driver.find_elements(by="xpath",value ='//div[@class="story__copy-container"]') #return a list
 
 titles=[]
@@ -27,10 +35,7 @@ for container in containers:
 
 my_dict={'titles':titles, 'subtitle':subtitles, 'link':links}
 df_headlines=pd.DataFrame(my_dict)
-df_headlines.to_csv('headline.csv')
+df_headlines.to_csv('headline-headless.csv')
 
 
 driver.quit()
-
-c=input("digite uma letra")
-print("Press enter to cose...")
