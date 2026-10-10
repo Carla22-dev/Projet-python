@@ -2,24 +2,30 @@ from selenium  import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
 import pandas as pd
+from datetime import datetime
+import os 
+import sys
+
+
+
+application_path=os.path.dirname(sys.executable)
+now=datetime.now() 
+# MMDDYYYY
+month_day_year = now.strftime("%m%d%y")
 
 website = 'https://www.thesun.co.uk/sport/football/'
 path = r'C:/Users/cf974/Downloads/chromedriver-win64/chromedriver-win64/chromedriver.exe' # introduce path here
 
-
-
 ## headless
 options=Options()
 options.headless=True
-options.add_argument("--headless")
-
+#options.add_argument("--headless")
 service = Service(executable_path=path)
 driver=webdriver.Chrome(service =service,options=options)
-
 driver.get(website)
 
-containers=driver.find_elements(by="xpath",value ='//div[@class="story__copy-container"]') #return a list
 
+containers=driver.find_elements(by="xpath",value ='//div[@class="story__copy-container"]') #return a list
 titles=[]
 subtitles=[]
 links=[]
@@ -35,7 +41,10 @@ for container in containers:
 
 my_dict={'titles':titles, 'subtitle':subtitles, 'link':links}
 df_headlines=pd.DataFrame(my_dict)
-df_headlines.to_csv('headline-headless.csv')
 
+file_name=f'headline-{month_day_year}.csv'
+final_path=os.path.join(application_path,file_name)
+
+df_headlines.to_csv(final_path)
 
 driver.quit()
